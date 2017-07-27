@@ -12,8 +12,8 @@ from io import open
 data_dir = './data/Holmes_Training_Data/'
 output_dir = './data/Holmes_Training_Data_Clean/'
 
-input_files = glob.glob(os.path.join(data_dir, "1ADAM10.TXT"));
-print(input_files);
+input_files = glob.glob(os.path.join(data_dir, "*.TXT"))
+print(input_files)
 
 def clean_str(string):
     """
@@ -29,11 +29,12 @@ def clean_str(string):
     string = re.sub(r"\s{2,}", " ", string)
     return string.strip().lower()
 
-def preprocess(input_files, vocab_file='', data_file=''):
-    i = 0
-    x_sent = []
+def preprocess(input_files, ngram_size=5):
+    #i = 0
+
     for input_file in input_files:
         with open(input_file, "r", encoding='latin1', errors='ignore') as f:
+            print "Reading from " + input_file
             data = f.read()
             
             # text cleaning or make them lower case, etc.
@@ -41,18 +42,27 @@ def preprocess(input_files, vocab_file='', data_file=''):
             
             sentences = re.split(r"(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=[.?;!])\s",data)
             
-            clean_sent = []
-            for sent in sentences:
+            ngram_dir = './data/Holmes_Training_Data_' + str(ngram_size) + 'gram'
+            
+            if not os.path.exists(ngram_dir):
+                os.makedirs(ngram_dir)
+            
+            for index, sent in enumerate(sentences):
                 s = re.sub(r"\.", " . ", sent)
                 s = re.sub(r"\s{2,}", " ", s)
                 tokens = s.strip().split()
-                print(tokens)
-                # if len(tokens) <= 40 - 2:
-                #     clean_sent += ['<START> ' + s + ' <END>'] 
-                    
-            x_sent += clean_sent
+                
+                if len(tokens) >= ngram_size:
+                    ngram_arr = zip(*[tokens[i:] for i in range(ngram_size)])
+                    for index2, ngram in enumerate(ngram_arr):
+                        f = open(ngram_dir + '/' + os.path.basename(input_file), 'a')
+                        if (index == len(sentences)-1 and index2 == len(ngram_arr)-1):
+                            f.write(' '.join(list(ngram)))
+                        else:
+                            f.write(' '.join(list(ngram))+'\n')
+            f.close()
 
-    print(x_sent);
+                    
     # self.vocab, self.words = self.build_vocab(x_sent)
     # self.vocab_size = len(self.words)
 
@@ -79,4 +89,4 @@ def preprocess(input_files, vocab_file='', data_file=''):
     # self.num_data = len(self.data)
     # self.num_batches = self.num_data // self.batch_size
 
-preprocess(input_files, '', '')
+preprocess(input_files)

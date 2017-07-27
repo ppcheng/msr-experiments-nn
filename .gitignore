@@ -1,3 +1,7 @@
 *.pyc
 
+Holmes_Training_Data_5gram/
+Holmes_Training_Data_5gram_matrix/
 Holmes_Training_Data/
+
+word_embedding/
