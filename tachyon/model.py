@@ -90,7 +90,7 @@ class Model:
         self.build_variables()
         self.build_forward_graph()
         self.start_session()
-        self.writer = tf.train.FileWriter('logs/minibatch_range3', self.session.graph_def)
+        self.writer = tf.summary.FileWriter('logs/minibatch_range3', self.session.graph_def)
         self.get_normal_value()
         self.close_session()
 
@@ -483,13 +483,13 @@ class Model:
         self.out_size = len(self.node_layers[-1])
         self.start_session()
         if tensorboard_dir:
-            self.writer = tf.train.FileWriter(tensorboard_dir, self.session.graph)
+            self.writer = tf.summary.FileWriter(tensorboard_dir, self.session.graph)
         self.close_session()
     def start_session(self):
         assert self.session == None
-	config = tf.ConfigProto()
-	config.gpu_options.allocator_type = 'BFC'
-	config.gpu_options.allow_growth=True
+        config = tf.ConfigProto()
+        config.gpu_options.allocator_type = 'BFC'
+        config.gpu_options.allow_growth = True
         self.session = tf.Session(config=config)
         self.session.run(self.initializer())
         return self.session

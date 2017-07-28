@@ -6,7 +6,7 @@ spn = SPN()
 # spn.add_data('data/abalone/abalone.ts.data', 'train', cont=True)
 # spn.add_data('data/abalone/abalone.valid.data', 'valid', cont=True)
 # spn.add_data('data/abalone/abalone.test.data', 'test', cont=True)
-spn.add_data('./data/Holmes_Training_Data_5gram_matrix/1ADAM10.TXT', 'train', cont=True)
+spn.add_data('./data/Holmes_Training_Data_5gram_matrix/train_big_5000/1ARGN10.TXT', 'train', cont=True)
 # create a valid sum product network
 
 sum_branch_factor = (2, 4)

@@ -15,3 +15,8 @@ http://www.wildml.com/2015/12/implementing-a-cnn-for-text-classification-in-tens
 
 http://www.wildml.com/2015/11/understanding-convolutional-neural-networks-for-nlp
 
+## Reference
+https://github.com/zihanchen/Conversational-Agent/blob/master/spn_experiment.py
+https://github.com/chiawen/sentence-completion/blob/master/train.py
+https://github.com/chiawen/sentence-completion/blob/master/utils.py
+https://github.com/KalraA/Tachyon
